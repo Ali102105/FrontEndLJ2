@@ -11,7 +11,7 @@ function Teams({ teams, setTeams }) {
     const nieuwTeam = {
       id: Date.now(),
       naam: teamNaam.trim(),
-      pokemons: []
+      pokemons: [],
     };
 
     setTeams([...teams, nieuwTeam]);
@@ -34,9 +34,7 @@ function Teams({ teams, setTeams }) {
           onChange={(event) => setTeamNaam(event.target.value)}
         />
 
-        <button type="submit">
-          Team aanmaken
-        </button>
+        <button type="submit">Team aanmaken</button>
       </form>
 
       {teams.length === 0 && <p>Je hebt nog geen teams.</p>}
@@ -45,9 +43,14 @@ function Teams({ teams, setTeams }) {
         <div key={team.id}>
           <h2>{team.naam}</h2>
 
-          <button onClick={() => teamVerwijderen(team.id)}>
-            Verwijderen
-          </button>
+          <p>
+            Pokémon:{" "}
+            {team.pokemons.length === 0
+              ? "Nog geen Pokémon"
+              : team.pokemons.join(", ")}
+          </p>
+
+          <button onClick={() => teamVerwijderen(team.id)}>Verwijderen</button>
         </div>
       ))}
     </div>
