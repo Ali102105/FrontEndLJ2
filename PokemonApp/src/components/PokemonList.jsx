@@ -27,13 +27,16 @@ function PokemonList() {
       {loading && <p>Pokémon laden...</p>}
       {error && <p>{error}</p>}
 
-      <ul>
-        {pokemons.map((pokemon) => (
-          <li key={pokemon.name}>
-            {pokemon.name}
-          </li>
-        ))}
-      </ul>
+      <div className="pokemon-grid">
+        {pokemons.map((pokemon) => {
+          const id = pokemon.url.split("/").at(-2);
+          const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+
+          return (
+            <PokemonCard key={pokemon.name} name={pokemon.name} image={image} />
+          );
+        })}
+      </div>
     </div>
   );
 }
