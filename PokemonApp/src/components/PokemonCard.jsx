@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 
-function PokemonCard({ name, image }) {
+function PokemonCard({ name, image, onAdd, disabled }) {
   return (
     <div className="pokemon-card">
       <Link to={`/pokemon/${name}`}>
         <img src={image} alt={name} />
         <h3>{name}</h3>
       </Link>
+
+      <button onClick={onAdd} disabled={disabled}>
+        Toevoegen aan team
+      </button>
     </div>
   );
 }
