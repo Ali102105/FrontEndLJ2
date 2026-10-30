@@ -21,7 +21,7 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pokemon" element={<Pokemon />} />
+          <Route path="/pokemon" element={<Pokemon teams={teams} setTeams={setTeams} />}/>
           <Route path="/pokemon/:name" element={<PokemonDetail />} />
           <Route path="/teams" element={<Teams teams={teams} setTeams={setTeams} />}/>
           <Route path="/login" element={<Login />} />

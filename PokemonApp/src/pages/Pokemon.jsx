@@ -1,9 +1,9 @@
 import PokemonList from '../components/PokemonList'
 
-function Pokemon() {
+function Pokemon({ teams, setTeams }) {
     return(
         <>
-        <PokemonList/>
+        <PokemonList teams={teams} setTeams={setTeams} />
         </>
     );
 }

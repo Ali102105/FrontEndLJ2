@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "./PokemonCard";
 
-function PokemonList() {
+function PokemonList({ teams, setTeams }) {
   const [pokemons, setPokemons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [gekozenTeam, setGekozenTeam] = useState("");
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=20")
