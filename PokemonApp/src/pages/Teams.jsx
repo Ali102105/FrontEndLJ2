@@ -22,6 +22,19 @@ function Teams({ teams, setTeams }) {
     setTeams(teams.filter((team) => team.id !== id));
   }
 
+  function pokemonVerwijderen(teamId, pokemonNaam) {
+    setTeams(
+      teams.map((team) => {
+        if (team.id !== teamId) return team;
+
+        return {
+          ...team,
+          pokemons: team.pokemons.filter((pokemon) => pokemon !== pokemonNaam),
+        };
+      }),
+    );
+  }
+
   return (
     <div>
       <h1>Teams</h1>
@@ -43,12 +56,21 @@ function Teams({ teams, setTeams }) {
         <div key={team.id}>
           <h2>{team.naam}</h2>
 
-          <p>
-            Pokémon:{" "}
-            {team.pokemons.length === 0
-              ? "Nog geen Pokémon"
-              : team.pokemons.join(", ")}
-          </p>
+          {team.pokemons.length === 0 ? (
+            <p>Nog geen Pokémon</p>
+          ) : (
+            <ul>
+              {team.pokemons.map((pokemon) => (
+                <li key={pokemon}>
+                  {pokemon}
+
+                  <button onClick={() => teamVerwijderen(team.id)}>
+                    Team verwijderen
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
 
           <button onClick={() => teamVerwijderen(team.id)}>Verwijderen</button>
         </div>
