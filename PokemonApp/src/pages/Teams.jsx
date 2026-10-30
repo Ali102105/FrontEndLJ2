@@ -11,7 +11,7 @@ function Teams({ teams, setTeams }) {
     const nieuwTeam = {
       id: Date.now(),
       naam: teamNaam.trim(),
-      pokemons: [],
+      pokemons: []
     };
 
     setTeams([...teams, nieuwTeam]);
@@ -23,23 +23,21 @@ function Teams({ teams, setTeams }) {
   }
 
   function pokemonVerwijderen(teamId, pokemonNaam) {
-    setTeams(
-      teams.map((team) => {
-        if (team.id !== teamId) return team;
+    setTeams(teams.map((team) => {
+      if (team.id !== teamId) return team;
 
-        return {
-          ...team,
-          pokemons: team.pokemons.filter((pokemon) => pokemon !== pokemonNaam),
-        };
-      }),
-    );
+      return {
+        ...team,
+        pokemons: team.pokemons.filter((pokemon) => pokemon !== pokemonNaam)
+      };
+    }));
   }
 
   return (
-    <div>
-      <h1>Teams</h1>
+    <div className="page-panel teams-panel">
+      <h1>Mijn Teams</h1>
 
-      <form onSubmit={teamToevoegen}>
+      <form className="teams-form" onSubmit={teamToevoegen}>
         <input
           type="text"
           placeholder="Naam van je team"
@@ -47,13 +45,15 @@ function Teams({ teams, setTeams }) {
           onChange={(event) => setTeamNaam(event.target.value)}
         />
 
-        <button type="submit">Team aanmaken</button>
+        <button type="submit">
+          Team aanmaken
+        </button>
       </form>
 
       {teams.length === 0 && <p>Je hebt nog geen teams.</p>}
 
       {teams.map((team) => (
-        <div key={team.id}>
+        <div className="team-card" key={team.id}>
           <h2>{team.naam}</h2>
 
           {team.pokemons.length === 0 ? (
@@ -64,15 +64,17 @@ function Teams({ teams, setTeams }) {
                 <li key={pokemon}>
                   {pokemon}
 
-                  <button onClick={() => teamVerwijderen(team.id)}>
-                    Team verwijderen
+                  <button onClick={() => pokemonVerwijderen(team.id, pokemon)}>
+                    Pokémon verwijderen
                   </button>
                 </li>
               ))}
             </ul>
           )}
 
-          <button onClick={() => teamVerwijderen(team.id)}>Verwijderen</button>
+          <button onClick={() => teamVerwijderen(team.id)}>
+            Team verwijderen
+          </button>
         </div>
       ))}
     </div>

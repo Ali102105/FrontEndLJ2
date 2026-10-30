@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -12,7 +12,23 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 
 function App() {
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState(() => {
+    const opgeslagenTeams = localStorage.getItem("pokemonTeams");
+    return opgeslagenTeams ? JSON.parse(opgeslagenTeams) : [];
+  });
+
+  const [favorieten, setFavorieten] = useState(() => {
+    const opgeslagenFavorieten = localStorage.getItem("pokemonFavorieten");
+    return opgeslagenFavorieten ? JSON.parse(opgeslagenFavorieten) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("pokemonTeams", JSON.stringify(teams));
+  }, [teams]);
+
+  useEffect(() => {
+    localStorage.setItem("pokemonFavorieten", JSON.stringify(favorieten));
+  }, [favorieten]);
 
   return (
     <div className="app">
@@ -21,9 +37,26 @@ function App() {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pokemon" element={<Pokemon teams={teams} setTeams={setTeams} />}/>
+
+          <Route
+            path="/pokemon"
+            element={
+              <Pokemon
+                teams={teams}
+                setTeams={setTeams}
+                favorieten={favorieten}
+                setFavorieten={setFavorieten}
+              />
+            }
+          />
+
           <Route path="/pokemon/:name" element={<PokemonDetail />} />
-          <Route path="/teams" element={<Teams teams={teams} setTeams={setTeams} />}/>
+
+          <Route
+            path="/teams"
+            element={<Teams teams={teams} setTeams={setTeams} />}
+          />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

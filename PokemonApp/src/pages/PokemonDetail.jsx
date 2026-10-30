@@ -18,28 +18,51 @@ function PokemonDetail() {
       .catch(() => setError("Kon deze Pokémon niet laden."));
   }, [name]);
 
-  if (error) return <p>{error}</p>;
+  if (error) {
+    return <div className="page-panel"><p>{error}</p></div>;
+  }
+
   if (!pokemon || pokemon.name !== name) {
-    return <p>Pokémon laden...</p>;
+    return <div className="page-panel"><p>Pokémon laden...</p></div>;
   }
 
   return (
-    <div>
-      <Link to="/pokemon">Terug naar Pokémon</Link>
+    <div className="page-panel detail-panel">
+      <div className="detail-header">
+        <h1>{pokemon.name}</h1>
 
-      <h1>{pokemon.name}</h1>
+        <Link className="back-button" to="/pokemon">
+          GO BACK
+        </Link>
+      </div>
 
-      <img
-        src={pokemon.sprites.front_default}
-        alt={pokemon.name}
-      />
+      <div className="detail-body">
+        <div className="detail-image">
+          <img
+            src={pokemon.sprites.front_default}
+            alt={pokemon.name}
+          />
+        </div>
 
-      <p>
-        Type: {pokemon.types.map((item) => item.type.name).join(", ")}
-      </p>
+        <div className="detail-stats">
+          <p>
+            <span>TYPE :</span>
+            <strong>
+              {pokemon.types.map((item) => item.type.name).join(", ")}
+            </strong>
+          </p>
 
-      <p>Lengte: {pokemon.height / 10} meter</p>
-      <p>Gewicht: {pokemon.weight / 10} kg</p>
+          <p>
+            <span>WEIGHT :</span>
+            <strong>{pokemon.weight / 10} KG</strong>
+          </p>
+
+          <p>
+            <span>HEIGHT :</span>
+            <strong>{pokemon.height / 10} M</strong>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

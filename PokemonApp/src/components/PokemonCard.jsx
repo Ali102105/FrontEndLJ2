@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function PokemonCard({ name, image, onAdd, disabled }) {
+function PokemonCard({ name, image, onAdd, disabled, isFavorite, onFavorite }) {
   return (
     <div className="pokemon-card">
       <Link to={`/pokemon/${name}`}>
@@ -10,6 +10,10 @@ function PokemonCard({ name, image, onAdd, disabled }) {
 
       <button onClick={onAdd} disabled={disabled}>
         Toevoegen aan team
+      </button>
+
+      <button onClick={onFavorite}>
+        {isFavorite ? "Favoriet verwijderen" : "Favoriet maken"}
       </button>
     </div>
   );
