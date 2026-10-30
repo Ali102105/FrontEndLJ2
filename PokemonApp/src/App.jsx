@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Footer from './components/Footer';
 import Home from "./pages/Home";
 import Pokemon from "./pages/Pokemon";
+import PokemonDetail from "./pages/PokemonDetail";
 import Teams from "./pages/Teams";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pokemon" element={<Pokemon />} />
+          <Route path="/pokemon/:name" element={<PokemonDetail />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
